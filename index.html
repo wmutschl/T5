@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VW T5 Transporter zu verkaufen</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background: #f5f5f5;
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, #1a365d 0%, #2a4a7f 100%);
+      color: #fff;
+      padding: 2.5rem 1rem 2rem;
+      text-align: center;
+    }
+    .hero h1 { font-size: 2rem; margin-bottom: 0.3rem; font-weight: 700; }
+    .hero .subtitle { font-size: 1.1rem; opacity: 0.85; margin-bottom: 1.5rem; }
+    .hero .price { font-size: 2.2rem; font-weight: 800; color: #fbbf24; }
+
+    .specs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem 2rem;
+      margin-top: 1.5rem;
+    }
+    .specs .spec {
+      background: rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      text-align: center;
+      min-width: 120px;
+    }
+    .specs .spec .label { font-size: 0.75rem; text-transform: uppercase; opacity: 0.7; letter-spacing: 0.05em; }
+    .specs .spec .value { font-size: 1.1rem; font-weight: 600; }
+
+    /* Sections */
+    section { padding: 2rem 0; }
+    section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 3px solid #2a4a7f;
+      display: inline-block;
+    }
+
+    /* Description */
+    .description { background: #fff; border-radius: 10px; padding: 1.5rem; margin-top: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+    .description p { margin-bottom: 0.8rem; }
+    .description ul { margin: 0.5rem 0 1rem 1.5rem; }
+    .description li { margin-bottom: 0.3rem; }
+
+    /* Gallery */
+    .gallery-section { margin-top: 1rem; }
+    .gallery-category { margin-bottom: 2rem; }
+    .gallery-category h3 {
+      font-size: 1.15rem;
+      margin-bottom: 0.75rem;
+      color: #2a4a7f;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 0.5rem;
+    }
+    .gallery-grid img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      background: #e2e2e2;
+    }
+    .gallery-grid img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 95vw;
+      max-height: 90vh;
+      border-radius: 6px;
+      object-fit: contain;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      color: #fff;
+      font-size: 2.5rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      line-height: 1;
+      z-index: 1001;
+    }
+    .lightbox-close:hover { color: #fbbf24; }
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #fff;
+      font-size: 3rem;
+      cursor: pointer;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      border-radius: 50%;
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      z-index: 1001;
+    }
+    .lightbox-nav:hover { background: rgba(255,255,255,0.25); }
+    .lightbox-prev { left: 1rem; }
+    .lightbox-next { right: 1rem; }
+    .lightbox-counter {
+      position: absolute;
+      bottom: 1.2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.7);
+      font-size: 0.9rem;
+    }
+
+    /* Documents */
+    .doc-list { list-style: none; padding: 0; }
+    .doc-list li {
+      background: #fff;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .doc-list a {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.85rem 1rem;
+      color: #1a365d;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.15s;
+      border-radius: 8px;
+    }
+    .doc-list a:hover { background: #eef2ff; }
+    .doc-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      background: #dc2626;
+      color: #fff;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .doc-label { font-size: 0.95rem; }
+    .doc-download {
+      margin-left: auto;
+      font-size: 0.8rem;
+      color: #2a4a7f;
+      flex-shrink: 0;
+    }
+
+    /* Contact */
+    .contact-box {
+      background: #fff;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+    .contact-box p { margin-bottom: 0.5rem; }
+    .contact-box .location { font-size: 1.1rem; font-weight: 600; color: #2a4a7f; }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: #9ca3af;
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 1.5rem; }
+      .hero .price { font-size: 1.7rem; }
+      .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+      .lightbox-nav { width: 44px; height: 44px; font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="container">
+      <h1>VW T5 Transporter</h1>
+      <p class="subtitle">Langer Radstand &middot; 1.9 TDI &middot; Camper-Ausbau &middot; So.-Kfz Wohnmobil</p>
+      <div class="price">VB &euro;9.500</div>
+      <div class="specs">
+        <div class="spec"><div class="label">Erstzulassung</div><div class="value">10/2009</div></div>
+        <div class="spec"><div class="label">Kilometer</div><div class="value">253.461 km</div></div>
+        <div class="spec"><div class="label">Leistung</div><div class="value">102 PS</div></div>
+        <div class="spec"><div class="label">Kraftstoff</div><div class="value">Diesel</div></div>
+        <div class="spec"><div class="label">Getriebe</div><div class="value">Manuell</div></div>
+        <div class="spec"><div class="label">HU/AU</div><div class="value">01/2028</div></div>
+        <div class="spec"><div class="label">Plakette</div><div class="value">4 (Gr&uuml;n)</div></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Description -->
+  <section>
+    <div class="container">
+      <h2>Beschreibung</h2>
+      <div class="description">
+        <p>Wir verkaufen unseren VW T5, langer Radstand, 1.9 TDI, 75 kW (&asymp;102 PS), als So.-Kfz Wohnmobil eingetragen (oft g&uuml;nstiger in Versicherung und Kfz-Steuer als Pkw-Diesel). Der Bulli stammt aus Familienbesitz (vom Vater &uuml;bernommen) und wird kaum genutzt &ndash; daher Verkauf.</p>
+
+        <p>Der Bus ist als einfacher Camper ausgebaut: gro&szlig;es Bett/Schlafmodul mit Stauraum, seitliche M&ouml;bel/Schr&auml;nke und eine manuelle Markise am Dach. Innen k&ouml;nnen die Sitzb&auml;nke schnell aus- bzw. eingebaut werden &ndash; so wird er je nach Bedarf zum Camper oder Transporter. Holzplatte im Laderaum vollst&auml;ndig verbaut und ideal f&uuml;r weitere Umbauten.</p>
+
+        <p>Au&szlig;en und innen dem Alter entsprechend mit &uuml;blichen Gebrauchsspuren, technisch l&auml;uft er zuverl&auml;ssig.</p>
+
+        <p><strong>Ausstattung / Highlights:</strong></p>
+        <ul>
+          <li>Langer Radstand (viel Platz)</li>
+          <li>So.-Kfz Wohnmobil eingetragen</li>
+          <li>Dachtr&auml;ger (inklusive)</li>
+          <li>Markise (manuell)</li>
+          <li>Schlaf-/Staumodul im Heck, klappbar</li>
+          <li>Variable Bestuhlung (Vordersitzbank + hintere Bank, insgesamt 6 Sitzpl&auml;tze m&ouml;glich)</li>
+          <li>Rechte Schiebet&uuml;r</li>
+          <li>Stahlfelgen, get&ouml;nte Scheiben hinten</li>
+          <li>12V-K&uuml;hlbox im M&ouml;belblock (inklusive)</li>
+          <li>Anh&auml;ngerkupplung</li>
+          <li>Nichtraucher-Fahrzeug</li>
+        </ul>
+
+        <p><strong>Zustand:</strong></p>
+        <ul>
+          <li>Motor/Getriebe unauff&auml;llig im Alltagsbetrieb</li>
+          <li>Karosserie und Innenraum mit alters&uuml;blichen Spuren</li>
+          <li>Privatverkauf, keine Garantie/Gew&auml;hrleistung/R&uuml;cknahme</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Photo Gallery -->
+  <section class="gallery-section">
+    <div class="container">
+      <h2>Fotos</h2>
+
+      <div class="gallery-category">
+        <h3>Au&szlig;en</h3>
+        <div class="gallery-grid">
+          <img src="T5%20Fotos/Weitere/Au%C3%9Fen_1.jpeg" alt="Au&szlig;en 1" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Au%C3%9Fen_2.jpeg" alt="Au&szlig;en 2" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Au%C3%9Fen_3.jpeg" alt="Au&szlig;en 3" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Au%C3%9Fen_4.jpeg" alt="Au&szlig;en 4" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Au%C3%9Fen_5.jpeg" alt="Au&szlig;en 5" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Au%C3%9Fen_6.jpeg" alt="Au&szlig;en 6" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Au%C3%9Fen_7.jpeg" alt="Au&szlig;en 7" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Au%C3%9Fen_8.jpeg" alt="Au&szlig;en 8" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Au%C3%9Fen_9.jpeg" alt="Au&szlig;en 9" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Au%C3%9Fen_10.jpeg" alt="Au&szlig;en 10" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Au%C3%9Fen_11.jpeg" alt="Au&szlig;en 11" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Au%C3%9Fen_12.jpeg" alt="Au&szlig;en 12" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Au%C3%9Fen_13.jpeg" alt="Au&szlig;en 13" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Au%C3%9Fen_14.jpeg" alt="Au&szlig;en 14" loading="lazy">
+        </div>
+      </div>
+
+      <div class="gallery-category">
+        <h3>Vorne</h3>
+        <div class="gallery-grid">
+          <img src="T5%20Fotos/Weitere/Vorne_1.jpeg" alt="Vorne 1" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Vorne_2.jpeg" alt="Vorne 2" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Vorne_3.jpeg" alt="Vorne 3" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Vorne_4.jpeg" alt="Vorne 4" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Vorne_5.jpeg" alt="Vorne 5" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Vorne_6.jpeg" alt="Vorne 6" loading="lazy">
+        </div>
+      </div>
+
+      <div class="gallery-category">
+        <h3>Hinten</h3>
+        <div class="gallery-grid">
+          <img src="T5%20Fotos/Weitere/Hinten_1.jpeg" alt="Hinten 1" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Hinten_3.jpeg" alt="Hinten 3" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Hinten_4.jpeg" alt="Hinten 4" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Hinten_5.jpeg" alt="Hinten 5" loading="lazy">
+        </div>
+      </div>
+
+      <div class="gallery-category">
+        <h3>Innen</h3>
+        <div class="gallery-grid">
+          <img src="T5%20Fotos/Weitere/Innen_1.jpeg" alt="Innen 1" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Innen_2.jpeg" alt="Innen 2" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Innen_3.jpeg" alt="Innen 3" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Innen_4.jpeg" alt="Innen 4" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Innen_5.jpeg" alt="Innen 5" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Innen_6.jpeg" alt="Innen 6" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Innen_7.jpeg" alt="Innen 7" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Innen_8.jpeg" alt="Innen 8" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Innen_9.jpeg" alt="Innen 9" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Innen_10.jpeg" alt="Innen 10" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Innen_11.jpeg" alt="Innen 11" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Innen_12.jpeg" alt="Innen 12" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Innen_13.jpeg" alt="Innen 13" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Innen_14.jpeg" alt="Innen 14" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Innen_15.jpeg" alt="Innen 15" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Innen_16.jpeg" alt="Innen 16" loading="lazy">
+        </div>
+      </div>
+
+      <div class="gallery-category">
+        <h3>Bett / Schlafmodul</h3>
+        <div class="gallery-grid">
+          <img src="T5%20Fotos/Weitere/Bett_1.jpeg" alt="Bett 1" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Bett_2.jpeg" alt="Bett 2" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Bett_3.jpeg" alt="Bett 3" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Bett_4.jpeg" alt="Bett 4" loading="lazy">
+        </div>
+      </div>
+
+      <div class="gallery-category">
+        <h3>Motor</h3>
+        <div class="gallery-grid">
+          <img src="T5%20Fotos/Weitere/Motor_1.jpeg" alt="Motor 1" loading="lazy">
+          <img src="T5%20Fotos/Weitere/Motor_2.jpeg" alt="Motor 2" loading="lazy">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lb-close" aria-label="Schlie&szlig;en">&times;</button>
+    <button class="lightbox-nav lightbox-prev" id="lb-prev" aria-label="Vorheriges Bild">&#8249;</button>
+    <img id="lb-img" src="" alt="">
+    <button class="lightbox-nav lightbox-next" id="lb-next" aria-label="N&auml;chstes Bild">&#8250;</button>
+    <div class="lightbox-counter" id="lb-counter"></div>
+  </div>
+
+  <!-- Documents -->
+  <section>
+    <div class="container">
+      <h2>Dokumente</h2>
+      <ul class="doc-list">
+        <li>
+          <a href="2026-01-14%20VW%20T5%20T%C3%9CV.pdf" target="_blank">
+            <span class="doc-icon">PDF</span>
+            <span class="doc-label">T&Uuml;V Bericht (14.01.2026)</span>
+            <span class="doc-download">Anzeigen &#x2197;</span>
+          </a>
+        </li>
+        <li>
+          <a href="T5%20Service%20Heft.pdf" target="_blank">
+            <span class="doc-icon">PDF</span>
+            <span class="doc-label">Service Heft</span>
+            <span class="doc-download">Anzeigen &#x2197;</span>
+          </a>
+        </li>
+        <li>
+          <a href="T5%20Rechnungen/2026-01-14%20VW%20T5%20Werkstatt%20Rechnung.pdf" target="_blank">
+            <span class="doc-icon">PDF</span>
+            <span class="doc-label">Werkstatt Rechnung (14.01.2026)</span>
+            <span class="doc-download">Anzeigen &#x2197;</span>
+          </a>
+        </li>
+        <li>
+          <a href="T5%20Rechnungen/20251103171616283.pdf" target="_blank">
+            <span class="doc-icon">PDF</span>
+            <span class="doc-label">Rechnung 1</span>
+            <span class="doc-download">Anzeigen &#x2197;</span>
+          </a>
+        </li>
+        <li>
+          <a href="T5%20Rechnungen/20251103171711685.pdf" target="_blank">
+            <span class="doc-icon">PDF</span>
+            <span class="doc-label">Rechnung 2</span>
+            <span class="doc-download">Anzeigen &#x2197;</span>
+          </a>
+        </li>
+        <li>
+          <a href="T5%20Rechnungen/20251103171806052.pdf" target="_blank">
+            <span class="doc-icon">PDF</span>
+            <span class="doc-label">Rechnung 3</span>
+            <span class="doc-download">Anzeigen &#x2197;</span>
+          </a>
+        </li>
+        <li>
+          <a href="T5%20Rechnungen/20251103172104029.pdf" target="_blank">
+            <span class="doc-icon">PDF</span>
+            <span class="doc-label">Rechnung 4</span>
+            <span class="doc-download">Anzeigen &#x2197;</span>
+          </a>
+        </li>
+        <li>
+          <a href="T5%20Rechnungen/20251103172151799.pdf" target="_blank">
+            <span class="doc-icon">PDF</span>
+            <span class="doc-label">Rechnung 5</span>
+            <span class="doc-download">Anzeigen &#x2197;</span>
+          </a>
+        </li>
+        <li>
+          <a href="T5%20Rechnungen/20251103172223994.pdf" target="_blank">
+            <span class="doc-icon">PDF</span>
+            <span class="doc-label">Rechnung 6</span>
+            <span class="doc-download">Anzeigen &#x2197;</span>
+          </a>
+        </li>
+        <li>
+          <a href="T5%20Rechnungen/20251103172239009.pdf" target="_blank">
+            <span class="doc-icon">PDF</span>
+            <span class="doc-label">Rechnung 7</span>
+            <span class="doc-download">Anzeigen &#x2197;</span>
+          </a>
+        </li>
+        <li>
+          <a href="T5%20Rechnungen/20251103172319497.pdf" target="_blank">
+            <span class="doc-icon">PDF</span>
+            <span class="doc-label">Rechnung 8</span>
+            <span class="doc-download">Anzeigen &#x2197;</span>
+          </a>
+        </li>
+        <li>
+          <a href="T5%20Rechnungen/20251103172334619.pdf" target="_blank">
+            <span class="doc-icon">PDF</span>
+            <span class="doc-label">Rechnung 9</span>
+            <span class="doc-download">Anzeigen &#x2197;</span>
+          </a>
+        </li>
+        <li>
+          <a href="T5%20Rechnungen/20251103172352586.pdf" target="_blank">
+            <span class="doc-icon">PDF</span>
+            <span class="doc-label">Rechnung 10</span>
+            <span class="doc-download">Anzeigen &#x2197;</span>
+          </a>
+        </li>
+        <li>
+          <a href="T5%20Rechnungen/20251103172437534.pdf" target="_blank">
+            <span class="doc-icon">PDF</span>
+            <span class="doc-label">Rechnung 11</span>
+            <span class="doc-download">Anzeigen &#x2197;</span>
+          </a>
+        </li>
+        <li>
+          <a href="T5%20Rechnungen/20251103172504881.pdf" target="_blank">
+            <span class="doc-icon">PDF</span>
+            <span class="doc-label">Rechnung 12</span>
+            <span class="doc-download">Anzeigen &#x2197;</span>
+          </a>
+        </li>
+        <li>
+          <a href="T5%20Rechnungen/20251103172524663.pdf" target="_blank">
+            <span class="doc-icon">PDF</span>
+            <span class="doc-label">Rechnung 13</span>
+            <span class="doc-download">Anzeigen &#x2197;</span>
+          </a>
+        </li>
+        <li>
+          <a href="T5%20Rechnungen/20251103172541918.pdf" target="_blank">
+            <span class="doc-icon">PDF</span>
+            <span class="doc-label">Rechnung 14</span>
+            <span class="doc-download">Anzeigen &#x2197;</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section>
+    <div class="container">
+      <h2>Kontakt</h2>
+      <div class="contact-box">
+        <p class="location">Standort: M&uuml;nster (Westf.)</p>
+        <p>Besichtigung und Probefahrt nach Absprache.</p>
+        <p style="margin-top:0.8rem;color:#6b7280;font-size:0.9rem;">Privatverkauf &ndash; keine Garantie, Gew&auml;hrleistung oder R&uuml;cknahme.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>VW T5 Transporter &middot; Privatverkauf in M&uuml;nster</p>
+  </footer>
+
+  <script>
+    (function() {
+      const images = Array.from(document.querySelectorAll('.gallery-grid img'));
+      const lightbox = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lb-img');
+      const lbCounter = document.getElementById('lb-counter');
+      let currentIndex = 0;
+
+      function openLightbox(index) {
+        currentIndex = index;
+        updateLightbox();
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      function updateLightbox() {
+        lbImg.src = images[currentIndex].src;
+        lbImg.alt = images[currentIndex].alt;
+        lbCounter.textContent = (currentIndex + 1) + ' / ' + images.length;
+      }
+
+      function navigate(dir) {
+        currentIndex = (currentIndex + dir + images.length) % images.length;
+        updateLightbox();
+      }
+
+      images.forEach(function(img, i) {
+        img.addEventListener('click', function() { openLightbox(i); });
+      });
+
+      document.getElementById('lb-close').addEventListener('click', closeLightbox);
+      document.getElementById('lb-prev').addEventListener('click', function() { navigate(-1); });
+      document.getElementById('lb-next').addEventListener('click', function() { navigate(1); });
+
+      lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') navigate(-1);
+        if (e.key === 'ArrowRight') navigate(1);
+      });
+    })();
+  </script>
+
+</body>
+</html>
