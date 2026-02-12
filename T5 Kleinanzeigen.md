@@ -5,7 +5,7 @@ Volkswagen
 Modell
 T5
 Kilometerstand
-253.461 km
+256.000 km
 Fahrzeugzustand
 Unbeschädigtes Fahrzeug
 Erstzulassung
@@ -40,7 +40,7 @@ https : // wmutschl . github . io / T5 /
 Wir verkaufen unseren VW T5, langer Radstand, 1.9 TDI, 75 kW (≈102 PS), als So.-Kfz Wohnmobil eingetragen (oft günstiger in Versicherung und Kfz-Steuer als Pkw-Diesel).
 Der Bulli stammt aus Familienbesitz (vom Vater übernommen) und wird kaum genutzt – daher Verkauf.
 
-• Kilometerstand: ca. 253.000 km
+• Kilometerstand: ca. 256.000 km
 • HU/AU: 01/2028
 • Umwelt: grüne Plakette (Kl. 4)
 • Getriebe: Schalter | Kraftstoff: Diesel
@@ -67,8 +67,8 @@ Technische Daten (kurz):
 • Kraftstoff: Diesel
 • Getriebe: Schaltgetriebe
 • EZ: 10/2009 (laut Papieren, siehe Foto)
-• Kilometer: 253.461 km
-• HU/AU: bis 12/2025
+• Kilometer: 256.000 km
+• HU/AU: 01/2028
 
 Zustand:
 • Motor/Getriebe unauffällig im Alltagsbetrieb
